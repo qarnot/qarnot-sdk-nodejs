@@ -7,6 +7,14 @@
     "Nicolas Duran <nicolas@qarnot.com>",
     "Etienne Mion <etienne.mion@qarnot-computing.com>"
   ],
+  "homepage": "https://computing.qarnot.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qarnot/qarnot-sdk-nodejs"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "scripts": {
     "doc": "jsdoc lib/** -d doc -R README.md -t ./node_modules/docdash",
     "lint": "eslint --fix . && prettier --write './**/*.js'",
