@@ -28,53 +28,53 @@ npm install @qarnot/sdk
     });
     ```
 
-    ### Run you first task !
+### Run you first task !
 
-    ```js
-    await qarnot.task.run({
-      name: 'helloworld',
-      profile: 'docker-batch',
-      instanceCount: 4,
-      constants: [{
-        key: 'DOCKER_CMD',
-        value: 'echo hello world from node ${INSTANCE_ID}!'
-      }]
-    });
-    /* Output:
-    2> hello world from node 2!
-    1> hello world from node 1!
-    0> hello world from node 0!
-    3> hello world from node 3!
-    */
-    ```
+```js
+await qarnot.task.run({
+  name: 'helloworld',
+  profile: 'docker-batch',
+  instanceCount: 4,
+  constants: [{
+    key: 'DOCKER_CMD',
+    value: 'echo hello world from node ${INSTANCE_ID}!'
+  }]
+});
+/* Output:
+2> hello world from node 2!
+1> hello world from node 1!
+0> hello world from node 0!
+3> hello world from node 3!
+*/
+```
 
-      _NB. This method returns only when the task is completed. For long running task you might want to check the submit method_
+_NB. This method returns only when the task is completed. For long running task you might want to check the submit method_
 
-    ### Create a task with ressources
+### Create a task with ressources
 
-    ```js
-    await qarnot.buckets.createBucket('my-input-bucket');
-    await qarnot.buckets.upload('my-input-bucket', 'input.txt', 'hello world !');
-    await qarnot.buckets.createBucket('my-output-bucket');
-    await qarnot.task.run({
-      name: 'helloworld-withdata',
-      profile: 'docker-batch',
-      instanceCount: 1,
-      resourceBuckets: [
-        'my-input-bucket',
-      ],
-      resultBucket : 'my-output-bucket',
-      constants: [{
-        key: 'DOCKER_CMD',
-        value: 'sh -c "cat input.txt | rev > output.txt"'
-      }]
-    });
-    const result = await qarnot.buckets.download('my-output-bucket', 'output.txt');
-    console.log(result.Body.toString());
-    /* Output:
-    ! dlrow olleh
-    */
-    ```
+```js
+await qarnot.buckets.createBucket('my-input-bucket');
+await qarnot.buckets.upload('my-input-bucket', 'input.txt', 'hello world !');
+await qarnot.buckets.createBucket('my-output-bucket');
+await qarnot.task.run({
+  name: 'helloworld-withdata',
+  profile: 'docker-batch',
+  instanceCount: 1,
+  resourceBuckets: [
+    'my-input-bucket',
+  ],
+  resultBucket : 'my-output-bucket',
+  constants: [{
+    key: 'DOCKER_CMD',
+    value: 'sh -c "cat input.txt | rev > output.txt"'
+  }]
+});
+const result = await qarnot.buckets.download('my-output-bucket', 'output.txt');
+console.log(result.Body.toString());
+/* Output:
+! dlrow olleh
+*/
+```
 
 ## Example
 
