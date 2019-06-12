@@ -2,6 +2,7 @@
   "name": "@qarnot/sdk",
   "version": "1.0.0",
   "description": "SDK for Qarnot REST API",
+  "public": true,
   "authors": [
     "Nicolas Duran <nicolas@qarnot.com>",
     "Etienne Mion <etienne.mion@qarnot-computing.com>"
