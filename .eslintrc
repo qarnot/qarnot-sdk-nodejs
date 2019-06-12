@@ -1,0 +1,9 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 2017
+  },
+  "extends": [
+    "eslint:recommended",
+    "@qarnot-int-module/eslint-config-qarnotjs"
+  ]
+}
