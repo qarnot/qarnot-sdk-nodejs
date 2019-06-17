@@ -1,0 +1,12 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 2017
+  },
+  "extends": [
+    "eslint:recommended",
+    "@qarnot-int-module/eslint-config-qarnotjs"
+  ],
+  "rules": {
+    "no-template-curly-in-string": 1
+  }
+}

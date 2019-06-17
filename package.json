@@ -1,0 +1,46 @@
+{
+  "name": "@qarnot/sdk",
+  "version": "0.0.0",
+  "description": "SDK for Qarnot REST API",
+  "public": true,
+  "authors": [
+    "Nicolas Duran <nicolas@qarnot.com>",
+    "Etienne Mion <etienne.mion@qarnot-computing.com>"
+  ],
+  "homepage": "https://computing.qarnot.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qarnot/qarnot-sdk-nodejs"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "scripts": {
+    "doc": "jsdoc lib/** -d doc -R README.md -t ./node_modules/docdash",
+    "lint": "eslint --fix . && prettier --write './**/*.js'",
+    "test": "mocha -t 10000",
+    "coverage": "nyc --reporter=lcov npm run test"
+  },
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "files": [
+    "/lib",
+    "index.js"
+  ],
+  "dependencies": {
+    "aws-sdk": "^2.473.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4",
+    "url-join": "^4.0.0"
+  },
+  "devDependencies": {
+    "@qarnot-int-module/eslint-config-qarnotjs": "^0.4.0",
+    "chai": "^4.2.0",
+    "docdash": "^1.1.1",
+    "eslint": "^5.16.0",
+    "jsdoc": "^3.6.2",
+    "mocha": "^6.1.4",
+    "nyc": "^14.1.1",
+    "prettier": "^1.18.2"
+  }
+}
