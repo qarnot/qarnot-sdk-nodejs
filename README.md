@@ -1,4 +1,6 @@
-# Qarnot NodeJS SDK
+# Qarnot NodeJS SDK 
+
+This package allows you to use [Qarnot](https://www.qarnot.com/) cloud computing service.
 
 ## Installation
 
@@ -24,7 +26,7 @@ npm install @qarnot/sdk
     ```js
     const QarnotSDK = require('@qarnot/sdk');
     const Qarnot = new QarnotSDK({
-        auth:'secret_token' // Retrieve from your Qarnot Developer Console interface
+        auth:'secret_token' // Retrieve your token from https://account.qarnot.com
     });
     ```
 
