@@ -1,4 +1,6 @@
 # Qarnot NodeJS SDK 
+[![Known Vulnerabilities](https://snyk.io//test/github/qarnot/qarnot-sdk-nodejs/badge.svg?targetFile=package.json)](https://snyk.io//test/github/qarnot/qarnot-sdk-nodejs?targetFile=package.json)
+[![Build status](https://travis-ci.org/qarnot/qarnot-sdk-nodejs.svg?branch=master)](https://travis-ci.org/qarnot/qarnot-sdk-nodejs)
 
 This package allows you to use [Qarnot](https://www.qarnot.com/) cloud computing service.
 
