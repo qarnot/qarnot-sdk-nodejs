@@ -1,0 +1,15 @@
+language: node_js
+dist: trusty
+node_js:
+- '8'
+- '10'
+- '12'
+script: node index.js
+deploy:
+  provider: npm
+  email: "nicolas.duran@qarnot-computing.com"
+  api_key:
+    secure: zqeSI0seSf9tifapYFnZyYaEEjSIhIHZio2ixIQJ9AKWBreu1OjmwalCX2DI/iGncrcszORtcrQYC+XZaaOWJlAJkT4IcXX/qXB+Y3ror1g4soQwQRxzEgzo9A2XgJ2mbrxf61zq8k1LmPhnpLKcP31vSFgT+p8einytsetRheZUk+0KJJYYZTcxDED/nGXIX/uFrw5Zivze8+UsOQv2EAHDUqGFZe1xfODnJrPRbLn2TvhKOU/c0IsAB0yvKM8dZQJPMSwl9BG0Vqpo+jjMcvechicecn88hZZJI/Vbc+0PbykvHRtR5RTWW7mh1JCQKvM75tKiEbp1X4upSI174tNd9MR9pk9q4Bye4z8N5bUW2o5eYwGwl32dDMVU0T9DyZaILPec36aXNakpNgMnU/a0K/bMTyLoU9nBAyuIuAAbmz0gTS2T8jXR8dbcLtpI6A57vVYfDghyQ3t8T+niU3kKoXBuEtpUT2WivY2WnFkGntlH71DEUw7qpXnT4KeF2Yk37J/vCxHQHozSB5TMkNOkhRIpnn3fM2rzUK6Jm8zbTrhs8S10hK1Q6wbjG86MX2Y/JWe0XxLss8DUD2KDIsRvAlb1YFdO4cMPgWoJR3r8uRfPJbQNLLe38Ejhh3kIK/JORGB7+KlWpsm4pkDEY2IvRZFln8qshWkHWH2NP5s=
+  on:
+    tags: true
+    branch: master
