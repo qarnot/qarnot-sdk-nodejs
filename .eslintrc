@@ -1,12 +1,13 @@
 {
+  "env": {
+    "node": true,
+    "mocha": true,
+    "es6": true
+  },
   "parserOptions": {
-    "ecmaVersion": 2017
+    "ecmaVersion": 2018
   },
   "extends": [
-    "eslint:recommended",
-    "@qarnot-int-module/eslint-config-qarnotjs"
-  ],
-  "rules": {
-    "no-template-curly-in-string": 1
-  }
+    "eslint:recommended"
+  ]
 }
