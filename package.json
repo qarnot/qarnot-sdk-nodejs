@@ -1,6 +1,6 @@
 {
   "name": "@qarnot/sdk",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "SDK for Qarnot REST API",
   "public": true,
   "authors": [
@@ -40,7 +40,7 @@
     "chai": "^4.2.0",
     "docdash": "^1.1.1",
     "eslint": "^6.2.2",
-    "jsdoc": "^3.6.2",
+    "jsdoc": "^3.6.3",
     "mocha": "^6.1.4",
     "nyc": "^14.1.1",
     "prettier": "^1.18.2"
