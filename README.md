@@ -55,7 +55,7 @@ await Qarnot.tasks.run({
 
 _NB. This method returns only when the task is completed. For long running task you might want to check the submit method_
 
-### Create a task with ressources
+### Create a task with resources
 
 ```js
 await Qarnot.buckets.createBucket('my-input-bucket');
