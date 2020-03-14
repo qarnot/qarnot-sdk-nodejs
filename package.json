@@ -1,6 +1,6 @@
 {
   "name": "@qarnot/sdk",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "SDK for Qarnot REST API",
   "public": true,
   "authors": [
