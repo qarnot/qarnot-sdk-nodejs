@@ -1,6 +1,6 @@
 {
   "name": "@qarnot/sdk",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "SDK for Qarnot REST API",
   "public": true,
   "authors": [
@@ -32,7 +32,7 @@
   ],
   "dependencies": {
     "aws-sdk": "^2.473.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "url-join": "^4.0.0"
   },
   "devDependencies": {
