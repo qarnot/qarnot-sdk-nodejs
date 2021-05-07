@@ -1,11 +1,10 @@
 {
   "name": "@qarnot/sdk",
-  "version": "1.5.2",
+  "version": "1.6.0",
   "description": "SDK for Qarnot REST API",
   "public": true,
   "authors": [
-    "Nicolas Duran <nicolas@qarnot.com>",
-    "Etienne Mion <etienne.mion@qarnot-computing.com>"
+    "Qarnot Computing <developers@qarnot.com> (https://computing.qarnot.com)"
   ],
   "homepage": "https://computing.qarnot.com",
   "repository": {
