@@ -1,6 +1,6 @@
 {
   "name": "@qarnot/sdk",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "SDK for Qarnot REST API",
   "public": true,
   "authors": [
@@ -21,8 +21,7 @@
     "doc": "jsdoc lib/** -d doc -R README.md -t ./node_modules/docdash",
     "lint": "eslint --fix . && prettier --write './**/*.js'",
     "test": "mocha -t 10000",
-    "coverage": "nyc --reporter=lcov npm run test",
-    "preinstall": "npx npm-force-resolutions"
+    "coverage": "nyc --reporter=lcov npm run test"
   },
   "license": "Apache-2.0",
   "main": "index.js",
@@ -39,12 +38,9 @@
     "chai": "^4.3.4",
     "docdash": "^1.2.0",
     "eslint": "^6.8.0",
-    "jsdoc": "^3.6.6",
+    "jsdoc": "^3.6.7",
     "mocha": "^8.3.2",
     "nyc": "^14.1.1",
     "prettier": "^1.19.1"
-  },
-  "resolutions": {
-    "underscore": "1.12.1"
   }
 }
