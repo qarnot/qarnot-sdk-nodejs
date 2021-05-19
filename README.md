@@ -30,9 +30,11 @@ npm install @qarnot/sdk
     const QarnotSDK = require('@qarnot/sdk');
     const Qarnot = new QarnotSDK({
         auth:'secret_token' // Retrieve your token from https://account.qarnot.com
+        storage: {
+          accessKeyId: 'email_address_of_user'
+        }
     });
     ```
-
 ### Run you first task !
 
 ```js

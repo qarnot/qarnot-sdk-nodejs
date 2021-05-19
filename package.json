@@ -1,6 +1,6 @@
 {
   "name": "@qarnot/sdk",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "description": "SDK for Qarnot REST API",
   "public": true,
   "authors": [
@@ -15,7 +15,7 @@
     "access": "public"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=14.0.0"
   },
   "scripts": {
     "doc": "jsdoc lib/** -d doc -R README.md -t ./node_modules/docdash",
