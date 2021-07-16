@@ -1,10 +1,10 @@
 language: node_js
 version: 1.0
-dist: trusty
+dist: focal
 node_js:
-- '8'
-- '10'
-- '12'
+- '14'
+- '15'
+- '16'
 script: node index.js
 deploy:
   edge: true
