@@ -13,11 +13,11 @@ npm install @qarnot/sdk
 
 ## Links
 
-  - [SDK documentation](https://computing.qarnot.com/documentation/sdk-nodejs/)
+  - [SDK documentation](https://qarnot.com/documentation/sdk-nodejs/)
   - [SDK repository](https://github.com/qarnot/qarnot-sdk-nodejs)
-  - [General documentation](https://computing.qarnot.com/developers/overview/qarnot-computing-home)
-  - [Qarnot computing portal](https://computing.qarnot.com)
-  - [REST API documentation](https://computing.qarnot.com/documentation/api/)
+  - [General documentation](https://qarnot.com/developers/overview/qarnot-computing-home)
+  - [Qarnot computing portal](https://qarnot.com)
+  - [REST API documentation](https://qarnot.com/documentation/api/)
 
 ## Usage
 
