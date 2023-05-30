@@ -27,7 +27,6 @@ describe('Storage', function() {
   it('Can upload a file', async function() {
     const file = await Qarnot.buckets.upload(BUCKET_NAME, FILE_NAME, 'test-suite-nodejs');
     assert.isObject(file);
-    assert.strictEqual(file.key, FILE_NAME);
     assert.strictEqual(file.Key, FILE_NAME);
     assert.strictEqual(file.Bucket, BUCKET_NAME);
   });
@@ -42,13 +41,13 @@ describe('Storage', function() {
 
   it('Can download a file', async function() {
     const data = await Qarnot.buckets.download(BUCKET_NAME, FILE_NAME);
-    assert.strictEqual(data.Body.toString(), 'test-suite-nodejs');
+    assert.strictEqual(await data.Body.transformToString(), 'test-suite-nodejs');
   });
 
   it('Can delete a file', async function() {
     await Qarnot.buckets.deleteFile(BUCKET_NAME, FILE_NAME);
     const files = await Qarnot.buckets.listFiles(BUCKET_NAME);
-    const createdFile = files.Contents.find(s => s.Key === FILE_NAME && s.Bucket === BUCKET_NAME);
+    const createdFile = files.Contents?.find(s => s.Key === FILE_NAME && s.Bucket === BUCKET_NAME);
     assert.notExists(createdFile);
   });
 
@@ -57,7 +56,7 @@ describe('Storage', function() {
     const buckets = await Qarnot.buckets.listBuckets();
     assert.isObject(buckets);
     assert.isArray(buckets.Buckets);
-    const bucketCreated = buckets.Buckets.find(s => s.Name === BUCKET_NAME);
+    const bucketCreated = buckets.Buckets?.find(s => s.Name === BUCKET_NAME);
     assert.notExists(bucketCreated);
   });
 });
