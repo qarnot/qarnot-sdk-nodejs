@@ -81,6 +81,74 @@ describe('Pools', function() {
     assert.strictEqual(JSON.stringify(pool.tags), JSON.stringify(['updated']));
   });
 
+  it('Can check the sanity of scaling policies for a pool', async function() {
+    const data = {
+      policies: [
+        {
+          type: 'ManagedTasksQueue',
+          minTotalSlots: 0,
+          maxTotalSlots: 10,
+          minIdleSlots: 1,
+          minIdleTimeSeconds: 90,
+          scalingFactor: 0.5,
+          name: 'the-active-policy',
+          enabledPeriods: [
+            {
+              type: 'Weekly',
+              days: ['thursday'],
+              startTimeUtc: '19:30:00',
+              endTimeUtc: '23:59:59',
+              name: 'thursday-evening',
+            },
+            {
+              type: 'Weekly',
+              days: ['friday'],
+              startTimeUtc: '00:00:00',
+              endTimeUtc: '10:00:00',
+              name: 'friday-morning',
+            },
+          ],
+        },
+        {
+          type: 'Fixed',
+          slotsCount: 19,
+          name: 'default-policy',
+          enabledPeriods: [
+            {
+              type: 'Always',
+              name: 'always',
+            },
+          ],
+        },
+      ],
+    };
+    const response = await Qarnot.pools.check_scaling_policies_sanity(data);
+    assert.strictEqual(JSON.stringify(response), JSON.stringify(""));
+  });
+
+  it('Can send error when checking the sanity of scaling policies for a pool', async function() {
+    const data = {
+      policies: [
+        {
+          slotsCount: 12,
+          type: 'Wrong policy type name',
+          name: 'test_fixed_policies',
+          enabledPeriods: [
+            {
+              type: 'Wrong period type name',
+              name: 'default_always',
+            },
+          ],
+        },
+      ],
+    };
+    let errorResponse;
+    await Qarnot.pools.check_scaling_policies_sanity(data).catch(err => errorResponse = err);
+    assert.strictEqual(errorResponse.status, 400);
+    assert.strictEqual(errorResponse.statusText, "Bad Request");
+    assert.strictEqual(JSON.stringify(errorResponse.data.errors), JSON.stringify({"policies[0]":["The input was not valid."]}));
+  });
+
   it('Can update a scaling policies of a pool', async function() {
     const data = {
       policies: [
