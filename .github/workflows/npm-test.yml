@@ -15,4 +15,4 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      # - run: npm test TODO: waiting for secret to contact api.qarnot.com 
+      # - run: npm test TODO: waiting for secret to contact api.qarnot.com
