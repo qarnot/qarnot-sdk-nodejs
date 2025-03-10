@@ -21,15 +21,15 @@ npm install @qarnot/sdk
 
 ## Usage
 
--   Create a Qarnot account and get your API token: [Account](https://account.qarnot.com).
--   Monitor your tasks and manage your data: [Console](https://console.qarnot.com).
+-   Create a Qarnot account and get your API token: [Tasq](https://tasq.qarnot.com).
+-   Monitor your tasks and manage your data: [Tasq](https://tasq.qarnot.com).
 
 -   SDK initialization
 
     ```js
     const QarnotSDK = require('@qarnot/sdk');
     const Qarnot = new QarnotSDK({
-        auth:'secret_token' // Retrieve your token from https://account.qarnot.com
+        auth:'secret_token' // Retrieve your token from https://tasq.qarnot.com/settings/access-token
         storage: {
           accessKeyId: 'email_address_of_user'
         }
