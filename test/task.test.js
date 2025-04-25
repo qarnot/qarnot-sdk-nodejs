@@ -1,5 +1,4 @@
 const QarnotSDK = require('../index');
-const assert = require('chai').assert;
 const config = require('./config_test');
 
 const Qarnot = new QarnotSDK({
@@ -9,7 +8,7 @@ const Qarnot = new QarnotSDK({
 let createdTaskUuid;
 
 describe('Tasks', function() {
-  it('Can submit a task', async function() {
+  test('Can submit a task', async function() {
     const task = await Qarnot.tasks.submit({
       name: 'helloworld',
       profile: 'docker-batch',
@@ -22,48 +21,55 @@ describe('Tasks', function() {
       ],
     });
     createdTaskUuid = task.uuid;
-    assert.isObject(task);
-    assert.isString(task.uuid);
-    assert.lengthOf(task.uuid, 36);
+    expect(task).toMatchObject({});
+    expect(task.uuid).toEqual(expect.any(String));
+    expect(task.uuid.length).toStrictEqual(36);
   });
 
-  it('Can list all tasks', async function() {
+  test("Can fetch task's carbon facts", async function() {
+    const carbonFacts = await Qarnot.tasks.getCarbonFacts(createdTaskUuid);
+    expect(carbonFacts).toMatchObject({});
+  });
+
+  test('Can list all tasks', async function() {
     const tasks = await Qarnot.tasks.list();
-    assert.isArray(tasks);
-    assert.exists(tasks.find(t => t.uuid === createdTaskUuid));
+    expect(tasks).toEqual(expect.any(Array));
+    expect(tasks.find(t => t.uuid === createdTaskUuid)).toBeDefined();
   });
 
-  it('Can get a task', async function() {
+  test('Can get a task', async function() {
     const task = await Qarnot.tasks.get(createdTaskUuid);
-    assert.isObject(task);
-    assert.strictEqual(task.uuid, createdTaskUuid);
+    expect(task).toMatchObject({});
+    expect(task.uuid).toStrictEqual(createdTaskUuid);
   });
 
-  it('Can abort a task', async function() {
+  test('Can abort a task', async function() {
     await Qarnot.tasks.abort(createdTaskUuid);
     const task = await Qarnot.tasks.get(createdTaskUuid);
-    assert.oneOf(task.state, ['PendingCancel', 'Cancelled']);
+    expect(task.state).toMatch(/PendingCancel|Cancelled/);
   });
 
-  it('Can list all summaries', async function() {
+  test('Can list all summaries', async function() {
     const summaries = await Qarnot.tasks.summaries();
-    assert.isArray(summaries);
-    assert.exists(summaries.find(t => t.uuid === createdTaskUuid));
+    expect(summaries).toEqual(expect.any(Array));
+    expect(summaries.find(t => t.uuid === createdTaskUuid)).toBeDefined();
   });
 
-  it('Can delete a task', async function() {
+  test('Can delete a task', async function() {
     await Qarnot.tasks.delete(createdTaskUuid);
     const summaries = await Qarnot.tasks.summaries();
-    assert.isArray(summaries);
+    expect(summaries).toEqual(expect.any(Array));
     const deletedTask = summaries.find(t => t.uuid === createdTaskUuid);
     if (deletedTask) {
-      assert.strictEqual(deletedTask.state, 'PendingDelete');
+      // eslint-disable-next-line jest/no-conditional-expect
+      expect(deletedTask.state).toStrictEqual('PendingDelete');
     } else {
-      assert.notExists(deletedTask);
+      // eslint-disable-next-line jest/no-conditional-expect
+      expect(deletedTask).toBeUndefined();
     }
   });
 
-  // it('Can run a task', async function() {
+  // test('Can run a task', async function() {
   //   this.timeout(3 * 60 * 1000);
   //   const task = await Qarnot.tasks.run({
   //     name: 'helloworld',

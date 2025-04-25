@@ -8,6 +8,11 @@
     "ecmaVersion": 2020
   },
   "extends": [
-    "eslint:recommended"
+    "eslint:recommended",
+    "plugin:jest/recommended"
+  ],
+  "ignorePatterns": [
+    "doc/",
+    "coverage/"
   ]
 }

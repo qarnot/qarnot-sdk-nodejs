@@ -1,5 +1,4 @@
 const QarnotSDK = require('../index');
-const assert = require('chai').assert;
 const config = require('./config_test');
 
 const Qarnot = new QarnotSDK({
@@ -9,7 +8,7 @@ const Qarnot = new QarnotSDK({
 let createdPoolUuid, clonedPoolUuid;
 
 describe('Pools', function() {
-  it('Can create a pool', async function() {
+  test('Can create a pool', async function() {
     const pool = await Qarnot.pools.create({
       schedulingType: 'flex',
       instanceCount: 1,
@@ -56,32 +55,37 @@ describe('Pools', function() {
       shortname: 'helloworld',
     });
     createdPoolUuid = pool.uuid;
-    assert.isObject(pool);
-    assert.isString(pool.uuid);
-    assert.lengthOf(pool.uuid, 36);
+    expect(pool).toMatchObject({});
+    expect(pool.uuid).toEqual(expect.any(String));
+    expect(pool.uuid.length).toStrictEqual(36);
   });
 
-  it('Can list all pools', async function() {
+  test("Can fetch pool's carbon facts", async function() {
+    const carbonFacts = await Qarnot.pools.getCarbonFacts(createdPoolUuid);
+    expect(carbonFacts).toMatchObject({});
+  });
+
+  test('Can list all pools', async function() {
     const pools = await Qarnot.pools.list();
-    assert.isArray(pools);
-    assert.exists(pools.find(t => t.uuid === createdPoolUuid));
+    expect(pools).toEqual(expect.any(Array));
+    expect(pools.find(t => t.uuid === createdPoolUuid)).toBeDefined();
   });
 
-  it('Can get a pool', async function() {
+  test('Can get a pool', async function() {
     const pool = await Qarnot.pools.get(createdPoolUuid);
-    assert.isObject(pool);
-    assert.strictEqual(pool.uuid, createdPoolUuid);
+    expect(pool).toMatchObject({});
+    expect(pool.uuid).toStrictEqual(createdPoolUuid);
   });
 
-  it('Can update a pool', async function() {
+  test('Can update a pool', async function() {
     await Qarnot.pools.update(createdPoolUuid, {
       tags: ['updated'],
     });
     const pool = await Qarnot.pools.get(createdPoolUuid);
-    assert.strictEqual(JSON.stringify(pool.tags), JSON.stringify(['updated']));
+    expect(JSON.stringify(pool.tags)).toStrictEqual(JSON.stringify(['updated']));
   });
 
-  it('Can check the sanity of scaling policies for a pool', async function() {
+  test('Can check the sanity of scaling policies for a pool', async function() {
     const data = {
       policies: [
         {
@@ -123,10 +127,10 @@ describe('Pools', function() {
       ],
     };
     const response = await Qarnot.pools.check_scaling_policies_sanity(data);
-    assert.strictEqual(JSON.stringify(response), JSON.stringify(""));
+    expect(JSON.stringify(response)).toStrictEqual(JSON.stringify(''));
   });
 
-  it('Can send error when checking the sanity of scaling policies for a pool', async function() {
+  test('Can send error when checking the sanity of scaling policies for a pool', async function() {
     const data = {
       policies: [
         {
@@ -143,13 +147,13 @@ describe('Pools', function() {
       ],
     };
     let errorResponse;
-    await Qarnot.pools.check_scaling_policies_sanity(data).catch(err => errorResponse = err);
-    assert.strictEqual(errorResponse.status, 400);
-    assert.strictEqual(errorResponse.statusText, "Bad Request");
-    assert.strictEqual(JSON.stringify(errorResponse.data.errors), JSON.stringify({"policies[0]":["The input was not valid."]}));
+    await Qarnot.pools.check_scaling_policies_sanity(data).catch(err => (errorResponse = err));
+    expect(errorResponse.status).toStrictEqual(400);
+    expect(errorResponse.statusText).toStrictEqual('Bad Request');
+    expect(JSON.stringify(errorResponse.data.errors)).toStrictEqual(JSON.stringify({ 'policies[0]': ['The input was not valid.'] }));
   });
 
-  it('Can update a scaling policies of a pool', async function() {
+  test('Can update a scaling policies of a pool', async function() {
     const data = {
       policies: [
         {
@@ -192,10 +196,10 @@ describe('Pools', function() {
     };
     await Qarnot.pools.update_scaling_policies(createdPoolUuid, data);
     const pool = await Qarnot.pools.get(createdPoolUuid);
-    assert.strictEqual(JSON.stringify(pool.scaling.policies), JSON.stringify(data.policies));
+    expect(JSON.stringify(pool.scaling.policies)).toStrictEqual(JSON.stringify(data.policies));
   });
 
-  it('Can clone a pool', async function() {
+  test('Can clone a pool', async function() {
     const clonedPoolID = await Qarnot.pools.clone(createdPoolUuid, {
       name: 'clonedPool',
     });
@@ -223,53 +227,48 @@ describe('Pools', function() {
       delete newClonedPool[key];
       delete newPool[key];
     });
-    assert.strictEqual(JSON.stringify(newClonedPool), JSON.stringify(newPool));
+    expect(JSON.stringify(newClonedPool)).toStrictEqual(JSON.stringify(newPool));
   });
 
-  it('Can list all pools summary', async function() {
+  test('Can list all pools summary', async function() {
     const pools = await Qarnot.pools.summaries();
-    assert.isArray(pools);
-    assert.exists(pools.find(t => t.uuid === createdPoolUuid));
-    assert.exists(pools.find(t => t.uuid === clonedPoolUuid));
+    expect(pools).toEqual(expect.any(Array));
+    expect(pools.find(t => t.uuid === createdPoolUuid)).toBeDefined();
+    expect(pools.find(t => t.uuid === clonedPoolUuid)).toBeDefined();
   });
 
-  it('Can list all pools with pagination', async function() {
+  test('Can list all pools with pagination', async function() {
     const response = await Qarnot.pools.paginate(1);
-    assert.isArray(response.data);
-    assert.strictEqual(response.count, 1);
-    assert.strictEqual(response.isTruncated, true);
+    expect(response.data).toEqual(expect.any(Array));
+    expect(response.count).toStrictEqual(1);
+    expect(response.isTruncated).toStrictEqual(true);
   });
 
-  it('Can list all pools summary', async function() {
-    const pools = await Qarnot.pools.summaries();
-    assert.isArray(pools);
-    assert.exists(pools.find(t => t.uuid === createdPoolUuid));
-    assert.exists(pools.find(t => t.uuid === clonedPoolUuid));
-  });
-
-  it('Can list all pools summary with pagination', async function() {
+  test('Can list all pools summary with pagination', async function() {
     const response = await Qarnot.pools.summaries_paginate(1);
-    assert.isArray(response.data);
-    assert.strictEqual(response.count, 1);
-    assert.strictEqual(response.isTruncated, true);
+    expect(response.data).toEqual(expect.any(Array));
+    expect(response.count).toStrictEqual(1);
+    expect(response.isTruncated).toStrictEqual(true);
   });
 
-  it('Can close of a pool', async function() {
+  test('Can close of a pool', async function() {
     await Qarnot.pools.close(createdPoolUuid);
     const pool = await Qarnot.pools.get(createdPoolUuid);
-    assert.strictEqual(pool.state, 'Closing');
+    expect(pool.state).toStrictEqual('Closing');
   });
 
-  it('Can delete a pool', async function() {
+  test('Can delete a pool', async function() {
     await Qarnot.pools.delete(createdPoolUuid);
     await Qarnot.pools.delete(clonedPoolUuid);
     const pools = await Qarnot.pools.list();
-    assert.isArray(pools);
+    expect(pools).toEqual(expect.any(Array));
     const deletedPool = pools.find(t => t.uuid === createdPoolUuid);
     if (deletedPool) {
-      assert.strictEqual(deletedPool.state, 'PendingDelete');
+      // eslint-disable-next-line jest/no-conditional-expect
+      expect(deletedPool.state).toStrictEqual('PendingDelete');
     } else {
-      assert.notExists(deletedPool);
+      // eslint-disable-next-line jest/no-conditional-expect
+      expect(deletedPool).toBeUndefined();
     }
   });
 });

@@ -1,5 +1,4 @@
 const QarnotSDK = require('../index');
-const assert = require('chai').assert;
 const config = require('./config_test');
 
 const Qarnot = new QarnotSDK({
@@ -10,53 +9,53 @@ const BUCKET_NAME = 'test-suite-nodejs';
 const FILE_NAME = 'test.txt';
 
 describe('Storage', function() {
-  it('Can create a bucket', async function() {
+  test('Can create a bucket', async function() {
     await Qarnot.buckets.createBucket(BUCKET_NAME);
     const buckets = await Qarnot.buckets.listBuckets();
     const bucketCreated = buckets.Buckets.find(s => s.Name === BUCKET_NAME);
-    assert.exists(bucketCreated);
+    expect(bucketCreated).toBeDefined();
   });
-  it('Can list all buckets', async function() {
+  test('Can list all buckets', async function() {
     const buckets = await Qarnot.buckets.listBuckets();
-    assert.isObject(buckets);
-    assert.isArray(buckets.Buckets);
+    expect(buckets).toMatchObject({});
+    expect(buckets.Buckets).toEqual(expect.any(Array));
     const bucketCreated = buckets.Buckets.find(s => s.Name === BUCKET_NAME);
-    assert.exists(bucketCreated);
+    expect(bucketCreated).toBeDefined();
   });
 
-  it('Can upload a file', async function() {
+  test('Can upload a file', async function() {
     const file = await Qarnot.buckets.upload(BUCKET_NAME, FILE_NAME, 'test-suite-nodejs');
-    assert.isObject(file);
-    assert.strictEqual(file.Key, FILE_NAME);
-    assert.strictEqual(file.Bucket, BUCKET_NAME);
+    expect(file).toMatchObject({});
+    expect(file.Key).toStrictEqual(FILE_NAME);
+    expect(file.Bucket).toStrictEqual(BUCKET_NAME);
   });
 
-  it('Can list files in bucket', async function() {
+  test('Can list files in bucket', async function() {
     const files = await Qarnot.buckets.listFiles(BUCKET_NAME);
-    assert.isObject(files);
-    assert.isArray(files.Contents);
+    expect(files).toMatchObject({});
+    expect(files.Contents).toEqual(expect.any(Array));
     const createdFile = files.Contents.find(s => s.Key === FILE_NAME);
-    assert.exists(createdFile);
+    expect(createdFile).toBeDefined();
   });
 
-  it('Can download a file', async function() {
+  test('Can download a file', async function() {
     const data = await Qarnot.buckets.download(BUCKET_NAME, FILE_NAME);
-    assert.strictEqual(await data.Body.transformToString(), 'test-suite-nodejs');
+    expect(await data.Body.transformToString()).toStrictEqual('test-suite-nodejs');
   });
 
-  it('Can delete a file', async function() {
+  test('Can delete a file', async function() {
     await Qarnot.buckets.deleteFile(BUCKET_NAME, FILE_NAME);
     const files = await Qarnot.buckets.listFiles(BUCKET_NAME);
     const createdFile = files.Contents?.find(s => s.Key === FILE_NAME && s.Bucket === BUCKET_NAME);
-    assert.notExists(createdFile);
+    expect(createdFile).toBeUndefined();
   });
 
-  it('Can delete a bucket', async function() {
+  test('Can delete a bucket', async function() {
     await Qarnot.buckets.deleteBucket(BUCKET_NAME);
     const buckets = await Qarnot.buckets.listBuckets();
-    assert.isObject(buckets);
-    assert.isArray(buckets.Buckets);
+    expect(buckets).toMatchObject({});
+    expect(buckets.Buckets).toEqual(expect.any(Array));
     const bucketCreated = buckets.Buckets?.find(s => s.Name === BUCKET_NAME);
-    assert.notExists(bucketCreated);
+    expect(bucketCreated).toBeUndefined();
   });
 });
