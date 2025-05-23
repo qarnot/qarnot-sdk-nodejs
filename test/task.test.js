@@ -1,15 +1,13 @@
 const QarnotSDK = require('../index');
 const config = require('./config_test');
 
-const Qarnot = new QarnotSDK({
-  auth: config.token,
-});
+const qarnot = new QarnotSDK(config);
 
 let createdTaskUuid;
 
 describe('Tasks', function() {
   test('Can submit a task', async function() {
-    const task = await Qarnot.tasks.submit({
+    const task = await qarnot.tasks.submit({
       name: 'helloworld',
       profile: 'docker-batch',
       instanceCount: 4,
@@ -27,37 +25,42 @@ describe('Tasks', function() {
   });
 
   test("Can fetch task's carbon facts", async function() {
-    const carbonFacts = await Qarnot.tasks.getCarbonFacts(createdTaskUuid);
+    const carbonFacts = await qarnot.tasks.getCarbonFacts(createdTaskUuid);
     expect(carbonFacts).toMatchObject({});
   });
 
   test('Can list all tasks', async function() {
-    const tasks = await Qarnot.tasks.list();
+    const tasks = await qarnot.tasks.list();
     expect(tasks).toEqual(expect.any(Array));
     expect(tasks.find(t => t.uuid === createdTaskUuid)).toBeDefined();
   });
 
   test('Can get a task', async function() {
-    const task = await Qarnot.tasks.get(createdTaskUuid);
+    const task = await qarnot.tasks.get(createdTaskUuid);
     expect(task).toMatchObject({});
     expect(task.uuid).toStrictEqual(createdTaskUuid);
   });
 
+  test('Can get port forwarding', async function() {
+    const portForward = await qarnot.tasks.getPortForwarding(createdTaskUuid);
+    expect(portForward).toMatchObject({ '0': {} })
+  });
+
   test('Can abort a task', async function() {
-    await Qarnot.tasks.abort(createdTaskUuid);
-    const task = await Qarnot.tasks.get(createdTaskUuid);
+    await qarnot.tasks.abort(createdTaskUuid);
+    const task = await qarnot.tasks.get(createdTaskUuid);
     expect(task.state).toMatch(/PendingCancel|Cancelled/);
   });
 
   test('Can list all summaries', async function() {
-    const summaries = await Qarnot.tasks.summaries();
+    const summaries = await qarnot.tasks.summaries();
     expect(summaries).toEqual(expect.any(Array));
     expect(summaries.find(t => t.uuid === createdTaskUuid)).toBeDefined();
   });
 
   test('Can delete a task', async function() {
-    await Qarnot.tasks.delete(createdTaskUuid);
-    const summaries = await Qarnot.tasks.summaries();
+    await qarnot.tasks.delete(createdTaskUuid);
+    const summaries = await qarnot.tasks.summaries();
     expect(summaries).toEqual(expect.any(Array));
     const deletedTask = summaries.find(t => t.uuid === createdTaskUuid);
     if (deletedTask) {

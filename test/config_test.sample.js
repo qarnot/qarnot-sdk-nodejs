@@ -6,5 +6,5 @@
  */
 
 module.exports = {
-  token: 'my-secret-token',
+  auth: 'my-secret-token',
 };
