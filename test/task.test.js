@@ -46,6 +46,16 @@ describe('Tasks', function() {
     expect(portForward).toMatchObject({ '0': {} })
   });
 
+  test('Can get specific task instance stdout', async function() {
+    const instanceStdout = await qarnot.tasks.instanceStdout(createdTaskUuid, 2);
+    expect(instanceStdout).toEqual('');
+  });
+
+  test('Can get specific task instance stderr', async function() {
+    const instanceStderr = await qarnot.tasks.instanceStderr(createdTaskUuid, 2);
+    expect(instanceStderr).toEqual('');
+  });
+
   test('Can abort a task', async function() {
     await qarnot.tasks.abort(createdTaskUuid);
     const task = await qarnot.tasks.get(createdTaskUuid);
