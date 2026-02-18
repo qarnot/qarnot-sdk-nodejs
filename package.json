@@ -1,6 +1,6 @@
 {
   "name": "@qarnot/sdk",
-  "version": "1.18.0",
+  "version": "1.18.1",
   "description": "SDK for Qarnot REST API",
   "public": true,
   "authors": [
@@ -30,20 +30,21 @@
     "index.js"
   ],
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.360.0",
-    "@aws-sdk/lib-storage": "^3.360.0",
-    "axios": "^1.6.1",
-    "url-join": "^4.0.1"
+    "@aws-sdk/client-s3": "^3.992.0",
+    "@aws-sdk/lib-storage": "^3.992.0",
+    "axios": "^1.13.5"
   },
   "overrides": {
-    "semver": "^7.5.3"
+    "fast-xml-parser": "^5.3.6"
   },
   "devDependencies": {
-    "docdash": "^2.0.1",
-    "eslint": "^8.5.0",
-    "eslint-plugin-jest": "^28.11.0",
-    "jest": "^29.7.0",
-    "jsdoc": "^4.0.2",
-    "prettier": "^1.19.1"
+    "@eslint/js": "^10.0.0",
+    "docdash": "^2.0.2",
+    "eslint": "^10.0.0",
+    "eslint-plugin-jest": "^29.15.0",
+    "globals": "^16.1.0",
+    "jest": "^30.2.0",
+    "jsdoc": "^4.0.5",
+    "prettier": "^3.8.1"
   }
 }

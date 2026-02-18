@@ -3,8 +3,8 @@ const config = require('./config_test');
 
 const qarnot = new QarnotSDK(config);
 
-describe('HardwareConstraint', function() {
-  test('Can list available hardware constraints', async function() {
+describe('HardwareConstraint', function () {
+  test('Can list available hardware constraints', async function () {
     const hardwareConstraints = await qarnot.hardwareConstraints.list();
     expect(hardwareConstraints).toMatchObject({});
     expect(hardwareConstraints.data).toEqual(expect.any(Array));
