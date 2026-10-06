@@ -216,6 +216,7 @@ describe('Pools', function () {
       'state',
       'previousState',
       'runningInstanceCount',
+      'targetRunningInstanceCount',
       'executionTime',
       'wallTime',
     ];
